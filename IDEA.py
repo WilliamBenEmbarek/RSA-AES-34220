@@ -2,11 +2,11 @@ import math
 import os
 import numpy
 maxval = 2**16
-def keyd(kenya):
+def keyd(key):
 	shift = 0
 	out=[None]*8
-	kenya = bin(kenya)[2:]
-	t = kenya
+	key = bin(key)[2:]
+	t = key
 	for i in range(8):
 		for j in range(0,i*25):
 			t  = t[1:128]+t[0]
@@ -35,19 +35,19 @@ def xor(x,y):
 	t = x ^ y
 	return t
 
-def decSeq(Kanye):
+def decSeq(key):
 	kd = [None]*52
-	kd[0] = invmodp(Kanye[48],2**16+1)
-	kd[1] = maxval-Kanye[49]
-	kd[2] = maxval-(Kanye[50])
-	kd[3] = invmodp(Kanye[51],2**16+1)
+	kd[0] = invmodp(key[48],2**16+1)
+	kd[1] = maxval-key[49]
+	kd[2] = maxval-(key[50])
+	kd[3] = invmodp(key[51],2**16+1)
 	for x in range(8):
-		kd[4+6*x] = (Kanye[46-6*x])
-		kd[5+6*x] = (Kanye[47-6*x])
-		kd[6+6*x] = invmodp(Kanye[42-6*x],2**16+1)
-		kd[7+6*x] = maxval-(Kanye[43-6*x])
-		kd[8+6*x] = maxval-(Kanye[44-6*x])
-		kd[9+6*x] = invmodp(Kanye[45-6*x],2**16+1)
+		kd[4+6*x] = (key[46-6*x])
+		kd[5+6*x] = (key[47-6*x])
+		kd[6+6*x] = invmodp(key[42-6*x],2**16+1)
+		kd[7+6*x] = maxval-(key[43-6*x])
+		kd[8+6*x] = maxval-(key[44-6*x])
+		kd[9+6*x] = invmodp(key[45-6*x],2**16+1)
 	return kd
 
 def egcd(a, b):
@@ -129,9 +129,12 @@ a = 0
 b = 0
 c = 0
 d = 0
+print("Our 4 original values")
 print(a,b,c,d)
 (a1,b1,c1,d1) = encrypt(a,b,c,d,keyA)
 enc = (a1,b1,c1,d1)
+print("The Encrypted values")
 print(enc)
 dec = decrypt(a1,b1,c1,d1,keyA)
+print("The decoded values")
 print(dec)
